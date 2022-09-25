@@ -1,0 +1,91 @@
+<div class="form-container">
+    <mat-card>
+        <mat-card-header>
+            <mat-card-title-group>
+                <mat-card-title>
+                    <mat-icon>person</mat-icon>
+                    Register form
+                </mat-card-title>
+                <mat-card-subtitle>
+                    Please fill in your information
+                </mat-card-subtitle>
+            </mat-card-title-group>
+        </mat-card-header>
+        <br>
+        <form [formGroup]="registerForm" (submit)="submitForm()">
+            <mat-card-content>
+                <mat-grid-list cols="2" rowHeight="3:1">
+                    <mat-grid-tile colspan="2">
+                        <!----Role Selection-->
+                        <!--El formControlName nos sirve para cuando seleccionemos uno de los
+                        radioButtons automaticamente lo vamos a jalar como rol y sabremos que
+                        radioButton escogió-->
+                        <mat-radio-group name="account_type" formControlName="role" class="form-radio-group">
+                            <label>Select your Role : </label>
+                            <mat-radio-button value="JobSeeker" class="form-radio-button">Job Seeker</mat-radio-button>
+                            <mat-radio-button value="employee" class="form-radio-button">Employee</mat-radio-button>
+                            <br>
+                            <mat-card-title>Personal information</mat-card-title>
+                        </mat-radio-group>
+                    </mat-grid-tile>
+
+                    <mat-grid-tile>
+                        <!--Full Name-->
+                        <mat-form-field appearance="fill" class="full-width">
+                            <mat-label>Full name</mat-label>
+                            <input type="text" matInput formControlName="fullName" placeholder="Ex. Edgar Malca" />
+                            <mat-error *ngIf="fullName?.errors?.['required']"> Full Name is<strong>required</strong>
+                            </mat-error>
+                        </mat-form-field>
+                    </mat-grid-tile>
+
+                    <mat-grid-tile>
+                        <!--Phone Number-->
+                        <mat-form-field appearance="fill" class="full-width">
+                            <mat-label>Phone</mat-label>
+                            <input type="text" matInput formControlName="phone" />
+                            <mat-error *ngIf="phone?.errors?.['required']">Phone is <strong>required</strong>
+                            </mat-error>
+                            <mat-error *ngIf="phone?.errors?.['pattern'] && !phone?.errors?.['required']">
+                                Phone must have only <strong>numbers</strong>
+                            </mat-error>
+                        </mat-form-field>
+                    </mat-grid-tile>
+
+
+                    <mat-grid-tile>
+                        <!--Email-->
+                        <mat-form-field appearance="fill" class="full-width">
+                            <mat-label>Email</mat-label>
+                            <input type="email" matInput formControlName="email" placeholder="Ex. example@upc.edu.pe" />
+                            <mat-error *ngIf="email?.errors?.['required']">Email is <strong>required</strong>
+                            </mat-error>
+                            <mat-error *ngIf="email?.errors?.['email'] && !email?.errors?.['required']">
+                                Please enter a valid email address
+                            </mat-error>
+                        </mat-form-field>
+                    </mat-grid-tile>
+
+                    <mat-grid-tile>
+                        <!--Password-->
+                        <mat-form-field appearance="fill" class="full-width">
+                            <mat-label>Password</mat-label>
+                            <input type="password" matInput formControlName="password" />
+                            <mat-error *ngIf="password?.errors?.['required']">Password is <strong>required</strong>
+                            </mat-error>
+                            <mat-error *ngIf="password?.errors?.['minlength'] && !password?.errors?.['required']">
+                                Password must be at least <strong>5</strong> characters length
+                            </mat-error>
+                        </mat-form-field>
+                    </mat-grid-tile>
+                </mat-grid-list>
+            </mat-card-content>
+            <mat-card-actions>
+                <button [disabled]="!registerForm.valid" mat-flat-button color="primary" type="submit">Submit</button>
+            </mat-card-actions>
+            <ng-template [ngIf]="submitted">
+                <span>Form Submitted Successfully !</span>
+            </ng-template>
+        </form>
+    </mat-card>
+</div>
