@@ -11,6 +11,7 @@ export class SignUpFormComponent implements OnInit {
  
   submitted: boolean = false;
 
+  //¿Cual es la diferencia entre FormGroup y FormBuilder?
   registerForm: FormGroup = this.formBuilder.group({
     fullName: ['', {validators: [Validators.required], updatedOn: 'change'}],
     phone: ['', {updateOn: 'change'}],
@@ -20,7 +21,6 @@ export class SignUpFormComponent implements OnInit {
   });
 
  
-
   constructor(private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
@@ -56,6 +56,7 @@ export class SignUpFormComponent implements OnInit {
     //phoneControl?.setValidators([Validators.pattern('^[0-9]*$'), Validators.required]);
 
     //validation based on role
+    //¿este role es de la funcion o del registerForm?
     this.role?.valueChanges.subscribe((role) => {
       if(role =='jobSeeker'){
         phoneControl?.setValidators([Validators.pattern('^[0-9]*$'), Validators.required]);
@@ -63,6 +64,8 @@ export class SignUpFormComponent implements OnInit {
       else{ 
         phoneControl?.setValidators([Validators.pattern('^[0-9]*$')]);
       }
+
+      //¿Para que sirve el updateValueAndValidity()?
       phoneControl?.updateValueAndValidity();
     })
   }

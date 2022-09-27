@@ -1,5 +1,6 @@
 <div class="form-container">
     <mat-card>
+
         <mat-card-header>
             <mat-card-title-group>
                 <mat-card-title>
@@ -11,9 +12,12 @@
                 </mat-card-subtitle>
             </mat-card-title-group>
         </mat-card-header>
+
         <br>
+
         <form [formGroup]="registerForm" (submit)="submitForm()">
             <mat-card-content>
+                <!----¿como funciona el cols, rowHeight y colspan?-->
                 <mat-grid-list cols="2" rowHeight="3:1">
                     <mat-grid-tile colspan="2">
                         <!----Role Selection-->
@@ -34,7 +38,9 @@
                         <mat-form-field appearance="fill" class="full-width">
                             <mat-label>Full name</mat-label>
                             <input type="text" matInput formControlName="fullName" placeholder="Ex. Edgar Malca" />
-                            <mat-error *ngIf="fullName?.errors?.['required']"> Full Name is<strong>required</strong>
+                            <!--¿Para que sirve el simbolo ? ?-->
+                            <mat-error *ngIf="fullName?.errors?.['required']">
+                                Full Name is<strong> required</strong>
                             </mat-error>
                         </mat-form-field>
                     </mat-grid-tile>
@@ -43,23 +49,29 @@
                         <!--Phone Number-->
                         <mat-form-field appearance="fill" class="full-width">
                             <mat-label>Phone</mat-label>
-                            <input type="text" matInput formControlName="phone" />
-                            <mat-error *ngIf="phone?.errors?.['required']">Phone is <strong>required</strong>
+                            <input type="text" matInput formControlName="phone"/>
+                            <mat-error *ngIf="phone?.errors?.['required']">
+                                Phone is <strong>required</strong>
                             </mat-error>
+                            <!--¿Para que sirve el simbolo ? y que implica el ! ?-->
+                            <!--El pattern no está relacionado con el .ts , entonces el required de arriva
+                            tampoco es el mismo que está en el sts-->
                             <mat-error *ngIf="phone?.errors?.['pattern'] && !phone?.errors?.['required']">
                                 Phone must have only <strong>numbers</strong>
                             </mat-error>
                         </mat-form-field>
                     </mat-grid-tile>
 
-
                     <mat-grid-tile>
                         <!--Email-->
                         <mat-form-field appearance="fill" class="full-width">
                             <mat-label>Email</mat-label>
+                            <!--¿Para que sirve el formControlName?-->
                             <input type="email" matInput formControlName="email" placeholder="Ex. example@upc.edu.pe" />
-                            <mat-error *ngIf="email?.errors?.['required']">Email is <strong>required</strong>
+                            <mat-error *ngIf="email?.errors?.['required']">
+                                Email is <strong>required</strong>
                             </mat-error>
+                            <!--¿Xq el !email?.errors?.['required'] esta funcionando si el .ts dice que sí es requerido?-->
                             <mat-error *ngIf="email?.errors?.['email'] && !email?.errors?.['required']">
                                 Please enter a valid email address
                             </mat-error>
@@ -70,7 +82,7 @@
                         <!--Password-->
                         <mat-form-field appearance="fill" class="full-width">
                             <mat-label>Password</mat-label>
-                            <input type="password" matInput formControlName="password" />
+                            <input type="password" matInput formControlName="password"/>
                             <mat-error *ngIf="password?.errors?.['required']">Password is <strong>required</strong>
                             </mat-error>
                             <mat-error *ngIf="password?.errors?.['minlength'] && !password?.errors?.['required']">
@@ -78,11 +90,15 @@
                             </mat-error>
                         </mat-form-field>
                     </mat-grid-tile>
+
                 </mat-grid-list>
             </mat-card-content>
+
             <mat-card-actions>
                 <button [disabled]="!registerForm.valid" mat-flat-button color="primary" type="submit">Submit</button>
             </mat-card-actions>
+
+            <!--Xq el ngIf no tiene un * por delante-->
             <ng-template [ngIf]="submitted">
                 <span>Form Submitted Successfully !</span>
             </ng-template>
